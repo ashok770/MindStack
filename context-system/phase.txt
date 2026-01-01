@@ -1,0 +1,155 @@
+🧭 PROJECT DEVELOPMENT PHASES (CLEAR & LOCKED)
+🔹 PHASE 0 — Foundation (✅ DONE)
+
+Goal: Make the system technically ready
+
+✔ React project setup
+✔ Firebase project created
+✔ Firebase connected with React
+✔ Authentication enabled
+✔ Firestore enabled
+✔ users & tasks collections created
+
+👉 Status: ✅ COMPLETED
+👉 Interview line:
+
+“We first established a stable frontend–backend connection using Firebase.”
+
+🔹 PHASE 1 — Authentication Flow (NEXT)
+
+Goal: Identify who the student is
+
+What we will build
+
+Email & Password Sign Up
+
+Login
+
+Logout
+
+Store user info in users collection
+
+Firebase services used
+
+Firebase Authentication
+
+Firestore (users)
+
+Why this phase is important
+
+Every task must belong to a student
+
+Required for personalization
+
+👉 End result:
+A logged-in student with a unique uid
+
+🔹 PHASE 2 — Task Creation & Context Saving (CORE FEATURE)
+
+Goal: Save what the student was doing
+
+What we will build
+
+Create a task (title)
+
+Add context notes (thinking, reasoning, next steps)
+
+Save task in Firestore
+
+Firestore usage
+
+Collection: tasks
+
+Fields:
+
+userId
+
+title
+
+contextNotes
+
+lastUpdated
+
+Why this is CRITICAL
+
+🔥 This is your main innovation
+
+👉 End result:
+Student can pause work, and context is safely stored.
+
+🔹 PHASE 3 — Resume with AI (UNIQUENESS)
+
+Goal: Restore mental context using AI
+
+What we will build
+
+“Resume Task” button
+
+Fetch last saved context
+
+Send context to Gemini
+
+Get a short AI-generated summary
+
+Google tech used
+
+Gemini API
+
+Firebase (data source)
+
+Example output
+
+“You last worked on normalization and planned to write SQL queries next.”
+
+👉 End result:
+Instant resumption without cognitive load.
+
+🔹 PHASE 4 — Dashboard & UX (POLISH)
+
+Goal: Make it usable & demo-ready
+
+What we will build
+
+Student dashboard
+
+List of tasks
+
+Last updated time
+
+Resume button
+
+Why this matters
+
+Judges care about usability
+
+Makes demo smooth
+
+🔹 PHASE 5 — Finalization (HACKATHON READY)
+
+Goal: Submission & presentation
+
+Tasks
+
+Clean code
+
+GitHub README
+
+PPT completion
+
+Demo video script
+
+Focus
+
+Clear story
+
+Strong problem–solution link
+
+Google tech usage clarity
+
+🧠 ONE-SLIDE SUMMARY (PPT READY)
+
+You can say:
+
+“We divided development into phases: foundation, authentication, task context capture, AI-based resume, and final UX. This ensured clarity, speed, and successful delivery within hackathon time.”
+
+🔥 Judges LOVE this.

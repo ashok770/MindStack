@@ -153,3 +153,18 @@ You can say:
 “We divided development into phases: foundation, authentication, task context capture, AI-based resume, and final UX. This ensured clarity, speed, and successful delivery within hackathon time.”
 
 🔥 Judges LOVE this.
+
+
+
+----------------Questions----------------------
+Q1: Why did you use AI here?
+
+Answer:
+
+“Because resuming work requires restoring mental context, which rule-based systems cannot handle effectively.”
+
+Q2: Why Gemini?
+
+Answer:
+
+“Gemini integrates well with Google ecosystem and is effective at understanding academic context and summarization.”

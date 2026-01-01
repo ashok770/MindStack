@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signupUser } from "./auth/signup";
 import { loginUser } from "./auth/login";
 import { addTask } from "./tasks/addTask";
+import { getResumeSummary } from "./ai/gemini";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -35,6 +36,21 @@ function App() {
       setContextNotes("");
     } catch (error) {
       alert(error.message);
+    }
+  };
+
+  const testGemini = async () => {
+    try {
+      const summary = await getResumeSummary(
+        "DSA Practice",
+        "Solved logic, need to code edge cases"
+      );
+
+      console.log("Gemini Summary:", summary);
+      alert(summary);
+    } catch (error) {
+      console.error(error);
+      alert("Gemini API error");
     }
   };
 
@@ -87,6 +103,9 @@ function App() {
       <br />
 
       <button onClick={handleAddTask}>Save Task</button>
+      <hr />
+      <h3>Test Gemini Resume</h3>
+      <button onClick={testGemini}>Resume with AI</button>
     </div>
   );
 }

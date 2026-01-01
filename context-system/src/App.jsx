@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signupUser } from "./auth/signup";
 import { loginUser } from "./auth/login";
 import { addTask } from "./tasks/addTask";
-import { getResumeSummary } from "./ai/gemini";
+import { summarizeContext } from "./ai/gemini";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -41,12 +41,10 @@ function App() {
 
   const testGemini = async () => {
     try {
-      const summary = await getResumeSummary(
-        "DSA Practice",
+      const summary = await summarizeContext(
         "Solved logic, need to code edge cases"
       );
 
-      console.log("Gemini Summary:", summary);
       alert(summary);
     } catch (error) {
       console.error(error);

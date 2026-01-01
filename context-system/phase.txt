@@ -168,3 +168,14 @@ Q2: Why Gemini?
 Answer:
 
 “Gemini integrates well with Google ecosystem and is effective at understanding academic context and summarization.”
+
+🎤 INTERVIEW / JUDGE ANSWER (POWERFUL)
+
+If asked:
+
+“Why did you use Cloud Functions?”
+
+You say:
+
+“Gemini API does not reliably support direct browser calls, 
+so we used Firebase Cloud Functions to securely handle AI requests and avoid CORS and key exposure.”

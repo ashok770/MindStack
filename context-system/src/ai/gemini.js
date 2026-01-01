@@ -1,35 +1,38 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-// Get API key from .env
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+export async function summarizeContext(contextText) {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: `
+You are an academic assistant.
+Summarize the following student work context so the student can resume work easily.
 
-// Initialize Gemini client
-const genAI = new GoogleGenerativeAI(apiKey);
+Context:
+${contextText}
+                `,
+              },
+            ],
+          },
+        ],
+      }),
+    }
+  );
 
-// Use Gemini Pro model
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  const data = await response.json();
 
-export const getResumeSummary = async (taskTitle, contextNotes) => {
-  const prompt = `
-You are an academic productivity assistant.
+  if (!data.candidates) {
+    throw new Error("No response from Gemini");
+  }
 
-A student paused their work and is returning after a break.
-Based on the task details below, generate a short and clear resume summary.
-
-Task Title:
-${taskTitle}
-
-Context Notes:
-${contextNotes}
-
-Your response should:
-- Briefly state what was already done
-- Clearly mention what the student planned to do next
-- Be concise (2–3 lines)
-- Avoid unnecessary technical jargon
-`;
-
-  const result = await model.generateContent(prompt);
-  const response = result.response;
-  return response.text();
-};
+  return data.candidates[0].content.parts[0].text;
+}

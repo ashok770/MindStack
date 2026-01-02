@@ -1,38 +1,32 @@
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+// src/ai/gemini.js
+// Phase A: Mock Gemini AI (NO API, NO BILLING)
 
 export async function summarizeContext(contextText) {
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `
-You are an academic assistant.
-Summarize the following student work context so the student can resume work easily.
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // very simple "AI-style" logic
+      let summary = "📘 AI Resume Summary:\n\n";
 
-Context:
-${contextText}
-                `,
-              },
-            ],
-          },
-        ],
-      }),
-    }
-  );
+      if (contextText.toLowerCase().includes("logic")) {
+        summary +=
+          "• You have understood the core logic of the problem.\n" +
+          "• Implementation is partially complete.\n" +
+          "• Next step: handle edge cases and optimize the solution.\n";
+      } else if (contextText.toLowerCase().includes("video")) {
+        summary +=
+          "• You were learning through video content.\n" +
+          "• Progress was paused midway.\n" +
+          "• Next step: resume from the last watched concept.\n";
+      } else {
+        summary +=
+          "• Work was in progress.\n" +
+          "• Review previous steps carefully.\n" +
+          "• Decide the next actionable task.\n";
+      }
 
-  const data = await response.json();
+      summary += "\n✅ You can resume work immediately.";
 
-  if (!data.candidates) {
-    throw new Error("No response from Gemini");
-  }
-
-  return data.candidates[0].content.parts[0].text;
+      resolve(summary);
+    }, 800); // simulate AI thinking time
+  });
 }

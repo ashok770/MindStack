@@ -1,32 +1,64 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require("firebase-functions");
+const fetch = require("node-fetch");
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
-const logger = require("firebase-functions/logger");
+exports.summarizeContext = functions.https.onRequest(async (req, res) => {
+  try {
+    // Allow only POST requests
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Method not allowed" });
+    }
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+    const { contextText } = req.body;
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+    if (!contextText) {
+      return res.status(400).json({ error: "contextText is required" });
+    }
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+    // Gemini API key stored securely in Firebase config
+    const apiKey = functions.config().gemini.key;
+
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: `
+You are an academic productivity assistant.
+
+A student paused their work and is returning after a break.
+Summarize the context so the student can resume instantly.
+
+Context:
+${contextText}
+
+Respond in 2–3 clear lines.
+                  `,
+                },
+              ],
+            },
+          ],
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!data.candidates) {
+      return res.status(500).json({ error: "Gemini failed to respond" });
+    }
+
+    return res.status(200).json({
+      summary: data.candidates[0].content.parts[0].text,
+    });
+  } catch (error) {
+    console.error("Gemini Function Error:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});

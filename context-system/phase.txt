@@ -179,3 +179,26 @@ You say:
 
 “Gemini API does not reliably support direct browser calls, 
 so we used Firebase Cloud Functions to securely handle AI requests and avoid CORS and key exposure.”
+
+--------------------------
+Q: Why did you use Firebase Cloud Functions?
+
+To securely handle server-side logic like AI API calls, prevent API key exposure, and avoid CORS issues.
+
+Q: Why not call Gemini directly from React?
+
+Because frontend calls expose API keys and violate security best practices.
+
+Q: What does Firebase Functions act as?
+
+A backend middleware between frontend and third-party APIs.
+
+Q: How does your app communicate with AI?
+
+React → HTTPS Function → Gemini → response → React
+
+-----CLI----------------
+The
+Firebase CLI (Command Line Interface) is a powerful, text-based tool that allows developers to manage, 
+test, and deploy their Firebase projects directly from their computer's terminal. 
+It provides an efficient, scriptable alternative to using the web-based Firebase console

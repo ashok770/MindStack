@@ -44,11 +44,9 @@ function App() {
       const summary = await summarizeContext(
         "Solved logic, need to code edge cases"
       );
-
       alert(summary);
     } catch (error) {
-      console.error(error);
-      alert("Gemini API error");
+      alert("AI error");
     }
   };
 

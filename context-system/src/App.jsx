@@ -4,6 +4,7 @@ import { loginUser } from "./auth/login";
 import { addTask } from "./tasks/addTask";
 import { getUserTasks } from "./tasks/getTasks";
 import { summarizeContext } from "./ai/gemini";
+import "./App.css";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -78,122 +79,97 @@ function App() {
     }
   };
 
+  const resumeTask = (task) => {
+    runAIResume(task.contextNotes || task.title);
+  };
+
+  const testGemini = () => {
+    runAIResume(contextNotes || "Test context for AI analysis");
+  };
+
   return (
-    <div style={{ padding: "40px", maxWidth: "800px" }}>
-      <h1>MindStack – Phase C</h1>
+    <div className="container">
+      <div className="header">
+        <h1>MindStack</h1>
+        <p>AI-powered context resume for focused learning</p>
+      </div>
 
-      {/* ================= AUTH ================= */}
-      <h3>Auth</h3>
+      <div className="grid">
+        {/* AUTH */}
+        <div className="card">
+          <h3>🔐 Authentication</h3>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={handleSignup}>Sign Up</button>
+          <button
+            className="secondary"
+            onClick={handleLogin}
+            style={{ marginLeft: "8px" }}
+          >
+            Log In
+          </button>
+        </div>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <br />
+        {/* ADD TASK */}
+        <div className="card">
+          <h3>📝 Add Task</h3>
+          <input
+            type="text"
+            placeholder="Task title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <textarea
+            placeholder="Context notes (what you did, why, next steps)"
+            value={contextNotes}
+            onChange={(e) => setContextNotes(e.target.value)}
+          />
+          <button onClick={handleAddTask}>Save Task</button>
+        </div>
+      </div>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <br />
-
-      <button onClick={handleSignup}>Sign Up</button>
-      <button onClick={handleLogin} style={{ marginLeft: "10px" }}>
-        Log In
-      </button>
-
-      <hr />
-
-      {/* ================= ADD TASK ================= */}
-      <h3>Add Task</h3>
-
-      <input
-        type="text"
-        placeholder="Task title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <br />
-      <br />
-
-      <textarea
-        placeholder="Context notes (what you did, why, next steps)"
-        value={contextNotes}
-        onChange={(e) => setContextNotes(e.target.value)}
-        rows={4}
-        style={{ width: "100%" }}
-      />
-      <br />
-      <br />
-
-      <button onClick={handleAddTask}>Save Task</button>
-
-      <hr />
-
-      {/* ================= TASK LIST ================= */}
-      <h3>Your Saved Tasks</h3>
-
-      {tasks.length === 0 && <p>No tasks saved yet.</p>}
-
-      <ul style={{ paddingLeft: "0" }}>
+      {/* SAVED TASKS */}
+      <div className="card" style={{ marginTop: "20px" }}>
+        <h3>📂 Your Saved Tasks</h3>
+        {tasks.length === 0 && <p>No tasks yet</p>}
         {tasks.map((task) => (
-          <li
+          <div
             key={task.id}
-            style={{
-              listStyle: "none",
-              padding: "12px",
-              border: "1px solid #ddd",
-              borderRadius: "6px",
-              marginBottom: "10px",
-              cursor: "pointer",
-            }}
-            onClick={() => runAIResume(task.contextNotes)}
+            className="task-item"
+            onClick={() => resumeTask(task)}
           >
             <strong>{task.title}</strong>
-            <br />
-            <small>Click to resume this task</small>
-          </li>
+            <div style={{ fontSize: "12px", color: "#6b7280" }}>
+              Click to resume this task
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
 
-      <hr />
+      {/* AI RESUME */}
+      <div className="card" style={{ marginTop: "20px" }}>
+        <h3>🤖 Resume with AI</h3>
+        <button onClick={testGemini} disabled={loadingAI}>
+          {loadingAI ? "Analyzing..." : "Resume with AI"}
+        </button>
 
-      {/* ================= AI RESUME ================= */}
-      <h3>Resume Current Context with AI</h3>
-
-      <button
-        onClick={() =>
-          runAIResume(contextNotes || "Solved logic, need to code edge cases")
-        }
-        disabled={loadingAI}
-      >
-        {loadingAI ? "Analyzing..." : "Resume with AI"}
-      </button>
-
-      {loadingAI && <p>🤖 AI is analyzing your context...</p>}
-
-      {aiSummary && (
-        <div
-          style={{
-            marginTop: "20px",
-            padding: "16px",
-            borderRadius: "8px",
-            background: "#f4f7fb",
-            border: "1px solid #dcdcdc",
-          }}
-        >
-          <h4>📌 AI Resume Summary</h4>
-          <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit" }}>
-            {aiSummary}
-          </pre>
-        </div>
-      )}
+        {aiSummary && (
+          <div className="ai-box" style={{ marginTop: "16px" }}>
+            <strong>AI Resume Summary</strong>
+            <div>{aiSummary}</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

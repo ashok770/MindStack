@@ -9,6 +9,8 @@ function App() {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contextNotes, setContextNotes] = useState("");
+  const [loadingAI, setLoadingAI] = useState(false);
+  const [aiSummary, setAiSummary] = useState("");
 
   const handleSignup = async () => {
     try {
@@ -41,12 +43,19 @@ function App() {
 
   const testGemini = async () => {
     try {
+      setLoadingAI(true);
+      setAiSummary("");
+
       const summary = await summarizeContext(
-        "Solved logic, need to code edge cases"
+        contextNotes || "Solved logic, need to code edge cases"
       );
-      alert(summary);
+
+      setAiSummary(summary);
     } catch (error) {
-      alert("AI error");
+      console.error(error);
+      setAiSummary("❌ Failed to generate summary");
+    } finally {
+      setLoadingAI(false);
     }
   };
 
@@ -101,7 +110,29 @@ function App() {
       <button onClick={handleAddTask}>Save Task</button>
       <hr />
       <h3>Test Gemini Resume</h3>
-      <button onClick={testGemini}>Resume with AI</button>
+      <button onClick={testGemini} disabled={loadingAI}>
+        {loadingAI ? "Analyzing..." : "Resume with AI"}
+      </button>
+
+      {loadingAI && <p>🤖 AI is analyzing your context...</p>}
+
+      {aiSummary && (
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "16px",
+            borderRadius: "8px",
+            background: "#f4f7fb",
+            border: "1px solid #dcdcdc",
+            maxWidth: "600px",
+          }}
+        >
+          <h4>📌 AI Resume Summary</h4>
+          <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit" }}>
+            {aiSummary}
+          </pre>
+        </div>
+      )}
     </div>
   );
 }

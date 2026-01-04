@@ -33,7 +33,7 @@ export default function Login() {
       background: "#f4f6fb"
     }}>
       <div className="card" style={{ maxWidth: "400px", width: "100%" }}>
-        <h2 style={{ marginTop: 0 }}>🔐 Login to MindStack</h2>
+        <h2 style={{ marginTop: 0 }}>Login to MindStack</h2>
         
         {error && (
           <div style={{ 
@@ -82,4 +82,5 @@ export default function Login() {
     </div>
   );
 }
+
 

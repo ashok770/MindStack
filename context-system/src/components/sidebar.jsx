@@ -12,7 +12,7 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <h2 style={{ marginBottom: "8px" }}>🧠 MindStack</h2>
+      <h2 style={{ marginBottom: "8px" }}>MindStack</h2>
       <p style={{ fontSize: "12px", color: "#9ca3af", marginBottom: "24px" }}>
         Context Resume System
       </p>
@@ -29,7 +29,7 @@ export default function Sidebar() {
             transition: "background 0.2s"
           })}
         >
-          🏠 Home
+          Home
         </NavLink>
         <NavLink 
           to="/tasks"
@@ -42,7 +42,7 @@ export default function Sidebar() {
             transition: "background 0.2s"
           })}
         >
-          📋 Tasks
+          Tasks
         </NavLink>
         <NavLink 
           to="/snapshots"
@@ -55,7 +55,7 @@ export default function Sidebar() {
             transition: "background 0.2s"
           })}
         >
-          📸 Snapshots
+          Snapshots
         </NavLink>
       </nav>
 
@@ -88,7 +88,7 @@ export default function Sidebar() {
             fontWeight: "500"
           }}
         >
-          🚪 Logout
+          Logout
         </button>
       </div>
     </aside>

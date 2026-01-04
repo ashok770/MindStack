@@ -13,7 +13,7 @@ export default function TaskEditor({ onAddTask }) {
 
   return (
     <div className="card">
-      <h3>📝 Task Editor</h3>
+      <h3>Task Editor</h3>
 
       <input
         placeholder="Task title"

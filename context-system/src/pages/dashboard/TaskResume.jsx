@@ -81,14 +81,14 @@ export default function TaskResume() {
           >
             ← Back to Tasks
           </button>
-          <h2 style={{ marginTop: 0 }}>📋 {task.title}</h2>
+          <h2 style={{ marginTop: 0 }}>{task.title}</h2>
           <div className="muted" style={{ marginBottom: "16px" }}>
             Last updated: {formatDate(task.lastUpdated)}
           </div>
         </div>
 
         <div className="card" style={{ background: "#f9fafb", marginBottom: "20px" }}>
-          <h3 style={{ marginTop: 0, fontSize: "18px" }}>💭 Your Saved Context</h3>
+          <h3 style={{ marginTop: 0, fontSize: "18px" }}>Your Saved Context</h3>
           <div style={{ 
             whiteSpace: "pre-wrap", 
             lineHeight: "1.6",
@@ -111,7 +111,7 @@ export default function TaskResume() {
             fontWeight: "600"
           }}
         >
-          {analyzing ? "🧠 AI is analyzing your context..." : "🤖 Resume with AI"}
+          {analyzing ? "AI is analyzing your context..." : "Resume with AI"}
         </button>
       </div>
       

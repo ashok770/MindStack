@@ -64,7 +64,7 @@ export default function Tasks() {
   return (
     <div>
       <div className="card">
-        <h3>📝 Add New Task</h3>
+        <h3>Add New Task</h3>
         <form onSubmit={handleAddTask}>
           <input
             type="text"
@@ -87,7 +87,7 @@ export default function Tasks() {
       </div>
 
       <div className="card">
-        <h3>📂 Your Tasks ({tasks.length})</h3>
+        <h3>Your Tasks ({tasks.length})</h3>
         {loading ? (
           <p>Loading tasks...</p>
         ) : tasks.length === 0 ? (

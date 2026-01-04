@@ -7,7 +7,7 @@ export default function Snapshots() {
 
   return (
     <div className="card">
-      <h3>📸 Context Snapshots</h3>
+      <h3>Context Snapshots</h3>
       <p>Your saved learning snapshots</p>
       
       {snapshots.map((snapshot) => (

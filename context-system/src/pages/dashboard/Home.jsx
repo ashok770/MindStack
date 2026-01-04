@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <div>
       <div className="card">
-        <h1 style={{ marginTop: 0 }}>🧠 Welcome to MindStack</h1>
+        <h1 style={{ marginTop: 0 }}>Welcome to MindStack</h1>
         <p style={{ fontSize: "18px", color: "#4b5563" }}>
           Your smart productivity & learning dashboard
         </p>
@@ -40,7 +40,7 @@ export default function Home() {
 
       <div className="grid">
         <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/tasks")}>
-          <h3 style={{ marginTop: 0 }}>📝 Tasks</h3>
+          <h3 style={{ marginTop: 0 }}>Tasks</h3>
           <p style={{ fontSize: "14px", color: "#6b7280", marginBottom: "8px" }}>
             Create and manage your learning tasks with context
           </p>
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
 
         <div className="card">
-          <h3 style={{ marginTop: 0 }}>🤖 AI Resume</h3>
+          <h3 style={{ marginTop: 0 }}>AI Resume</h3>
           <p style={{ fontSize: "14px", color: "#6b7280" }}>
             Get intelligent summaries to quickly resume your work
           </p>
@@ -60,7 +60,7 @@ export default function Home() {
       </div>
 
       <div className="card" style={{ background: "#f0f9ff", border: "1px solid #bae6fd" }}>
-        <h3 style={{ marginTop: 0 }}>🚀 How It Works</h3>
+        <h3 style={{ marginTop: 0 }}>How It Works</h3>
         <ol style={{ lineHeight: "1.8", paddingLeft: "20px" }}>
           <li><strong>Create Tasks:</strong> Add tasks with context notes (what you did, why, next steps)</li>
           <li><strong>Save Progress:</strong> Your context is automatically saved to Firestore</li>
